@@ -39,7 +39,8 @@
         <form @submit.prevent='login_user'>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" v-model="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="email" v-model="email" class="form-control" id="exampleInputEmail1"
+                    aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
@@ -78,10 +79,13 @@
                             password: this.password
                         })
 
+                        console.log("LOGIN RESPONSE:", res.data);
+                        console.log("TOKEN:", res.data.token);
+
                         if (res.data.token) {
                             localStorage.setItem('token', res.data.token)
                             this.alertDangerShow = false
-                            this.alertSuccessShow=true
+                            this.alertSuccessShow = true
                             window.location.href = 'products.html'
                             console.log(res.data.token)
                         }
@@ -90,24 +94,15 @@
                         if (error.response.data?.error) {
                             this.alertMessage = error.response.data.error
 
-                        }else if(error.response && error.response.status===401){
-                            this.alertMessage='Invalid credentials'
-                        }else{
-                            this.alertMessage='Unable to connect to Server'
+                        } else if (error.response && error.response.status === 401) {
+                            this.alertMessage = 'Invalid credentials'
+                        } else {
+                            this.alertMessage = 'Unable to connect to Server'
                         }
                     }
-
-
-
-
-
-
-
                 }
-
             },
             mounted() {
-
             }
         }
         )
